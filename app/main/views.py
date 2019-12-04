@@ -1,9 +1,13 @@
+import os
 from flask import render_template,request,redirect,url_for
-from . import main
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
+
+from . import main
+from .. import db
 from .forms import BookForm
 from ..models import User, Books
-from .. import db
+from .. import create_app
 
 # Views
 @main.route('/')
@@ -20,13 +24,14 @@ def book():
 		title = form.title.data
 		author = form.title.data
 		description = form.description.data
-		photo = form.photo.data
+
+		photo = form.upload.data
 		filename = secure_filename(photo.filename)
 		photo.save(os.path.join(
 			app.instance_path, 'photos', filename
 		))
 
-		new_book = Books(title = title , author = author, description = description, user = current_user)
+		new_book = Books(title = title , author = author, description = description, user = current_user,photo = photo)
 		new_book.save_book()
 		return redirect(url_for('.index'))
 
