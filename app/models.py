@@ -14,6 +14,8 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
 
+    book = db.relationship('Books', backref ='user', lazy = 'dynamic')
+
 
     def save_user(self):
         db.session.add(self)
@@ -33,3 +35,19 @@ class User(UserMixin,db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+
+class Books(db.Model):
+    """docstring for Books."""
+    __tablename__ = 'books'
+    id = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(255))
+    author = db.Column(db.String(255))
+    description = db.Column(db.String(255))
+    posted = db.Column(db.DateTime, default = datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    photo = db.Column(db.String)
+
+    def save_book(self):
+        db.session.add(self)
+        db.session.commit()
