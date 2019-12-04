@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+<!-- make a section for the book cover -->
+<div style="font-family: 'Indie Flower', cursive; width:70%;margin: 0 auto;">
+  <div class="row" style="background-color:#616161; color:#ffffff;height:35%;">
+    <h3 style="margin-left:10px;">{{s_book.title}}</h3>
+    <hr style="margin-left:10px;margin-right:10px;">
+    <p style="margin-left:10px;">{{s_book.description}}</p>
+    <span>
+      <p style="margin-left:10px;">Posted on {{date}} by {{s_book.user.username| capitalize}}</p>
+    </span>
+  </div>
+  <hr>
+  <!-- <div>
+    {{macro.displayComments(comments)}}
+  </div>
+  {% if current_user.is_authenticated %}
+    {{ wtf.quick_form(comment_form) }}
+  {%endif%} -->
+</div>
+
+{% endblock %}

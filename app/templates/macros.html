@@ -1,0 +1,23 @@
+{% macro displayBooks(book_list)%}
+  {%for book in book_list%}
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
+          <div class="well well-lg">
+              <h4>{{book.title}}</h4>
+              <p>{{book.description| truncate(100)}}...</p>
+              <p>
+                Written by:  {{book.user.username}}
+                <a href="/blog/{{blog.id}}" class="btn pull-right">Read More...</a>
+              </p>
+          </div>
+      </div>
+  {%endfor%}
+{%endmacro%}
+
+{%macro displayComments(comments_list)%}
+  {%for comment in comments%}
+      <div class="col-md-12">
+          <h5>{{comment.user.username}}</h5>
+          <p>{{comment.comment}}</p>
+      </div>
+  {%endfor%}
+{%endmacro%}
