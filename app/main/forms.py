@@ -14,6 +14,7 @@ class BookForm(FlaskForm):
     description = TextAreaField('Text', validators = [Required()])
     # photo upload
     # upload = FileField('Book Cover', validators=[FileRequired(),FileAllowed(photo, 'Images only!')])
-    upload = FileField('Book Cover',validators=[FileRequired()])
+    # upload = FileField('Book Cover',validators=[FileRequired()])
+    upload = FileField('Book Cover')
 
     submit = SubmitField('Submit')

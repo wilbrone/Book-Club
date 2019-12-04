@@ -8,6 +8,7 @@ from .. import db
 from .forms import BookForm
 from ..models import User, Books
 from .. import create_app
+import app
 
 # Views
 @main.route('/')
@@ -25,14 +26,21 @@ def book():
 		author = form.title.data
 		description = form.description.data
 
-		photo = form.upload.data
-		filename = secure_filename(photo.filename)
-		photo.save(os.path.join(
-			app.instance_path, 'photos', filename
-		))
+		# photo = form.upload.data
+		# filename = secure_filename(photo.filename)
+		# photo.save(os.path.join(app.instance_path, 'photos', filename))
 
-		new_book = Books(title = title , author = author, description = description, user = current_user,photo = photo)
+		# new_book = Books(title = title , author = author, description = description, user = current_user,photo = photo)
+		new_book = Books(title = title , author = author, description = description, user = current_user)
 		new_book.save_book()
 		return redirect(url_for('.index'))
 
 	return render_template('book.html', title = title, book_form = form)
+
+
+@main.route('/user/<uname>/blogs')
+def user_books(uname):
+    user = User.query.filter_by(username=uname).first()
+    books = Books.query.filter_by(user_id = user.id).all()
+
+    return render_template("profile/books.html", user = user,books = books)

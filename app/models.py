@@ -51,3 +51,15 @@ class Books(db.Model):
     def save_book(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def get_books(cls):
+        books = Books.query.all()
+
+        return books
+
+
+    def get_single_book(id):
+        single_book = Books.query.filter_by(id = id).first()
+
+        return single_book
