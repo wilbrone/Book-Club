@@ -12,7 +12,6 @@ class TestUsers(unittest.TestCase):
 
         self.new_book=Books( title="tester", author="writer", description="big book", user_id=self.new_user.id)
 
-
     def test_instances(self):
         self.assertTrue(isinstance(self.new_user, User))
         self.assertTrue(isinstance(self.new_book, Books))
@@ -20,6 +19,7 @@ class TestUsers(unittest.TestCase):
     def test_instance_issaved(self):
 
         self.new_user.save_user()
-        self.new_books.save_books()
+        self.new_book.save_book()
 
+        self.assertTrue(len(Books.query.all())>0)
         self.assertTrue(len(User.query.all())>0)
