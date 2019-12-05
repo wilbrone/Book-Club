@@ -1,5 +1,5 @@
 import os
-from flask import render_template,request,redirect,url_for
+from flask import render_template,request,redirect,url_for,jsonify
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 
@@ -9,6 +9,7 @@ from .forms import BookForm
 from ..models import User, Books
 from .. import create_app
 import app
+import pusher
 
 # Views
 
@@ -77,3 +78,21 @@ def user_books(uname):
     books = Books.query.filter_by(user_id = user.id).all()
 
     return render_template("profile/books.html", user = user,books = books)
+
+
+pusher_client = pusher.Pusher(
+  app_id='911993',
+  key='516cc952f7e807a6d0b3',
+  secret='80b9ddcd00bea0ca2037',
+  cluster='ap2',
+  ssl=True
+)
+
+@main.route('/message', methods =['GET','POST'])
+def message():
+	username = request.form.get('username')
+	message = request.form.get('message')
+
+	pusher_client.trigger('chat-channel', 'new-message', {'username': username, 'message': message})
+
+	return render_template('chat.html')
