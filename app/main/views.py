@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from . import main
 from .. import db,photos
 from .forms import BookForm
-from ..models import User, Books
+from ..models import User, Books, Chat
 from .. import create_app
 import app
 import pusher
@@ -53,10 +53,11 @@ def new_book_upload():
 # VIEW FULL DETAIbook.photoL ABOUT A CERTAIN BOOK & ITS COMMENTS
 @main.route('/book/<int:id>',methods = ['GET','POST'])
 def single_bk(id):
+	chat = Chat.query.all()
 	s_book = Books.get_single_book(id)
 	posted = s_book.posted.strftime('%b %d, %Y')
 
-	return render_template('books.html', s_book = s_book,date = posted)
+	return render_template('books.html', s_book = s_book,date = posted , chat=chat)
 
 
 
@@ -81,6 +82,10 @@ pusher_client = pusher.Pusher(
 def message():
 	username = request.form.get('username')
 	message = request.form.get('message')
+
+	new_chat =  Chat(username = username , message = message)
+	db.session.add(new_chat)
+	db.session.commit()
 
 	pusher_client.trigger('chat-channel', 'new-message', {'username': username, 'message': message})
 
