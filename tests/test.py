@@ -38,3 +38,6 @@ class TestPasswords(unittest.TestCase):
 
     def test_password_tester(self):
         self.assertTrue(self.new_password.pass_secure is not None )
+
+    def test_verification(self):
+        self.assertTrue(self.new_password.pass_secure, ('testing12'))
