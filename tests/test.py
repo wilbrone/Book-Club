@@ -40,4 +40,4 @@ class TestPasswords(unittest.TestCase):
         self.assertTrue(self.new_password.pass_secure is not None )
 
     def test_verification(self):
-        self.assertTrue(self.new_password.pass_secure, ('testing12'))
+        self.assertTrue(self.new_password.pass_secure, ('testing12') )
