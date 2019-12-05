@@ -37,4 +37,4 @@ class TestPasswords(unittest.TestCase):
         self.new_password.save_user()
 
     def test_password_tester(self):
-        self.assertTrue(self.new_password.pass_secure is not None)
+        self.assertTrue(self.new_password.pass_secure is not None )
