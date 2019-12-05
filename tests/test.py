@@ -45,3 +45,5 @@ class TestPasswords(unittest.TestCase):
 
     def test_verification(self):
         self.assertTrue(self.new_password.pass_secure, ('testing12') )
+
+class TestChatRoom(unittest.TestCase):
