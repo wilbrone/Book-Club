@@ -45,6 +45,9 @@ class TestPasswords(unittest.TestCase):
 
 class TestBooksActivity(unittest.TestCase):
 
+    def setUp(self):
+
+
     def test_get_books(self):
         self.new_book.save_book()
         book=Books.get_books(1)
