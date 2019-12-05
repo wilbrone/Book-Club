@@ -15,12 +15,12 @@ def login():
 
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user,login_form.remember.data)
-            return redirect(request.args.get('next') or url_for('main.index'))
+            return redirect(request.args.get('next') or url_for('main.all_books_view'))
 
         flash('Invalid username or Password')
 
     title = "Blog Post"
-    return render_template('auth/login.html',login_form = login_form,title=title)
+    return render_template('auth/Login2.html',login_form = login_form,title=title)
 
 @auth.route('/register',methods = ["GET","POST"])
 def register():
@@ -36,10 +36,10 @@ def register():
 
         return redirect(url_for('auth.login'))
         title = "New Account"
-    return render_template('auth/register.html',registration_form = form)
+    return render_template('auth/register2.html',registration_form = form)
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("main.index"))
+    return redirect(url_for("main.all_books_view"))
