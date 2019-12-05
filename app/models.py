@@ -71,3 +71,12 @@ class Books(db.Model):
         single_book = Books.query.filter_by(id = id).first()
 
         return single_book
+
+class Chat(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    username =db.Column(db.String(50))
+    message = db.Column(db.String(255))
+
+    
+
+
