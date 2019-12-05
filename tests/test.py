@@ -47,6 +47,8 @@ class TestBooksActivity(unittest.TestCase):
 
     def setUp(self):
 
+        self.new_book=Books( title="tester", author="writer", description="big book", user_id=self.new_user.id)
+        self.new_book.save_book()
 
     def test_get_books(self):
         self.new_book.save_book()
