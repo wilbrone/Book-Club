@@ -46,7 +46,10 @@ class Books(db.Model):
     description = db.Column(db.String(255))
     posted = db.Column(db.DateTime, default = datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
-    photo = db.Column(db.String)
+    
+    # TRYING TO UPLOAD PHOTO
+    image_filename = db.Column(db.String, default=None, nullable=True)
+    photo = db.Column(db.String,default = None, nullable = True)
 
     def save_book(self):
         db.session.add(self)
