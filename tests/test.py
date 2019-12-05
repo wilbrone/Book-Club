@@ -29,6 +29,10 @@ class TestUsers(unittest.TestCase):
         self.new_book.save_book()
         self.assertTrue(len(Books.query.all())> 0)
 
+    def test_get_books(self):
+        self.new_book.save_book()
+        book=Books.get_books()
+        self.assertTrue(book is not None)
 
 class TestPasswords(unittest.TestCase):
 
@@ -41,16 +45,3 @@ class TestPasswords(unittest.TestCase):
 
     def test_verification(self):
         self.assertTrue(self.new_password.pass_secure, ('testing12') )
-
-
-class TestBooksActivity(unittest.TestCase):
-
-    def setUp(self):
-
-        self.new_book=Books( title="tester", author="writer", description="big book", user_id=self.new_user.id)
-        self.new_book.save_book()
-
-    def test_get_books(self):
-        self.new_book.save_book()
-        book=Books.get_books(1)
-        self.assertTrue(comment is not None)
