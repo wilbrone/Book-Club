@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+{% block content %}
+
+<div class="row">
+  {{macro.displayBooks(all_books)}}
+</div>
+
+<!-- check for button styles & designs -->
+<div class="container" style="padding-bottom: 20px;">
+	<a href="{{url_for('main.new_book_upload')}}" class="btn btn-success">Add a Book</a>
+</div>
+
+{% endblock %}
