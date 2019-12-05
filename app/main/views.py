@@ -29,7 +29,7 @@ def all_books_view():
 
 # UPLOADING NEW BOOK TO THE SYSYTEM
 @main.route('/bookupload', methods = ['GET', 'POST'])
-# @login_required
+@login_required
 def new_book_upload():
 	title = 'Book Club'
 
