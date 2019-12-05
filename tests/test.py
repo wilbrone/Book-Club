@@ -1,5 +1,5 @@
 import unittest
-from app.models import User
+from app.models import User, Books
 from app import db
 
 class TestUsers(unittest.TestCase):
@@ -8,8 +8,18 @@ class TestUsers(unittest.TestCase):
         self.new_user= User ( username="Jumpman",
                               full_name="John Doe",
                               email="jumpman@gmail.com",
-                              pass_secure="testing12"
-                              )
-    
-    def test_instance(self):
+                              pass_secure="testing12" )
+
+        self.new_book=Books( title="tester", author="writer", description="big book", user_id=self.new_user.id)
+
+
+    def test_instances(self):
         self.assertTrue(isinstance(self.new_user, User))
+        self.assertTrue(isinstance(self.new_book, Books))
+
+    def test_instance_issaved(self):
+
+        self.new_user.save_user()
+        self.new_books.save_books()
+
+        self.assertTrue(len(User.query.all())>0)
