@@ -1,3 +1,8 @@
+{% import 'bootstrap/wtf.html' as wtf%}
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +14,7 @@
     <meta name="keywords" content="" />
     <meta name="author" content="Free-Template.co" />
 
-    
+   
     <link rel="shortcut icon" href="{url_for('static', filename='ftco-32x32.png')}}">
 
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
@@ -30,7 +35,6 @@
     <link rel="stylesheet" href="{{url_for('static', filename='rangeslider.css')}}">
 
     <link rel="stylesheet" href="{{url_for('static', filename='stylestop.css')}}">
-    
   </head>
   <body>
   
@@ -47,31 +51,31 @@
     
     <header class="site-navbar" role="banner">
 
-      <div class="container">
-        <div class="row align-items-center">
-          
-          <div class="col-11 col-xl-2">
-            <h1 class="mb-0 site-logo"><a href="{{url_for('main.all_books_view')}}" class="text-white h2 mb-0">Book Club</a></h1>
-          </div>
-          <div class="col-12 col-md-10 d-none d-xl-block">
-            <nav class="site-navigation position-relative text-right" role="navigation">
-
-              <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                <li><a href="{{url_for('main.all_books_view')}}"><span>Home</span></a></li>
-                <li><a href="{{url_for('main.archives')}}"><span>Archives</span></a></li>
-                <li class="active"><a href="{{url_for('main.specific')}}"><span>Specific</span></a></li>
-                <li><a href="about.html"><span>About</span></a></li>
-                <li><a href="contact.html"><span>Contact</span></a></li>
-              </ul>
-            </nav>
-          </div>
-
-
-          <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
-
-          </div>
-
-        </div>
+            <div class="container">
+                    <div class="row align-items-center">
+                      
+                      <div class="col-11 col-xl-2">
+                        <h1 class="mb-0 site-logo"><a href="{{url_for('main.all_books_view')}}" class="text-white h2 mb-0">Book Club</a></h1>
+                      </div>
+                      <div class="col-12 col-md-10 d-none d-xl-block">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+            
+                          <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+                            <li><a href="{{url_for('main.all_books_view')}}"><span>Home</span></a></li>
+                            <li><a href="{{url_for('main.archives')}}"><span>Archives</span></a></li>
+                            <li><a href="{{url_for('main.specific')}}"><span>Specific</span></a></li>
+                            <li><a href="about.html"><span>About</span></a></li>
+                            <li><a href="contact.html"><span>Contact</span></a></li>
+                          </ul>
+                        </nav>
+                      </div>
+            
+            
+                      <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+            
+                      </div>
+            
+                    </div>
       </div>
       
     </header>
@@ -87,9 +91,8 @@
             
             <div class="row justify-content-center">
               <div class="col-md-8 text-center">
-                <h1> {{s_book.title}} by {{s_book.author}}</h1>
-               
-                <p>Posted on {{date}} by by {{s_book.user.username}}</p>
+                <h1>Sign In</h1>
+        
               </div>
             </div>
 
@@ -99,69 +102,34 @@
       </div>
     </div>  
 
-    <div class="site-section">
+    <div class="site-section bg-light">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8">
+          <div class="col-lg-5 mx-auto">
 
-            <!-- <div class="mb-5 border-bottom pb-5">
-              <p><img src="{{url_for('static',filename=s_book.photo) }}" alt="Image" class="img-fluid mb-4"></p>
+                <div class="container">
+                        <div class="row" style="margin-top: 50px">
+                          <div class= "col-md-2"> </div>
+                          <div class="col-md-8">
+                          <!--Flash message -->
+                          {% for message in get_flashed_messages() %}
+                            <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                            </div>
+                          {% endfor %}
+                          <!-- Login form -->
+                          {{wtf.quick_form(login_form)}}
+                          <p> Don't have an account? <a href="{{url_for('auth.register')}}">Sign up here</a></p>
+                         </div>
+                         <div clas="col-md-2"> </div>
+                        </div>
+                    </div>
 
-              <p>{{s_book.description}}</p>
-
-            
-              <div class="row">
-                <div class="col-md-6">
-                  <a href="#" class="btn btn-primary btn-md text-white">Contact Us</a>
-                </div>
-              </div>
-            </div> -->
-
-            <h2 class="mb-5 text-primary">Book Details</h2>
-
-            <div class="d-block d-md-flex listing-horizontal">
-                <p><img src="{{url_for('static',filename=s_book.photo) }}" alt="Image" class="img-fluid mb-4"></p>
-               
-              <a href="#" class="img d-block" style="background-image: url('images/img_2.jpg')">
-                <span class="category">{{s_book.title}}</span>
-              </a>
-
-              <div class="lh-content">
-                <a href="#" class="bookmark"><span class="icon-heart"></span></a>
-                <h3><a href="#"> {{s_book.title}} by {{s_book.author}}</a></h3>
-                <p>{{s_book.description}}</p>
-                <p>
-                  <span class="icon-star text-warning"></span>
-                  <span class="icon-star text-warning"></span>
-                  <span class="icon-star text-warning"></span>
-                  <span class="icon-star text-warning"></span>
-                  <span class="icon-star text-secondary"></span>
-                  <span>(492 Reviews)</span>
-                </p>
-
-                
-              </div>
-
-            </div>
+<!-- CONTENT HERE -->
 
           </div>
-         
-
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="py-5 bg-primary">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-7 mr-auto mb-4 mb-lg-0">
-            <h2 class="mb-3 mt-0 text-white">Let's get started. Create your account</h2>
-            <p class="mb-0 text-white">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          </div>
-          <div class="col-lg-4">
-            <p class="mb-0"><a href="signup.html" class="btn btn-outline-white text-white btn-md px-5 font-weight-bold btn-md-block">Sign Up</a></p>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -231,6 +199,7 @@
       </div>
     </footer>
   </div>
+
   <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
   <script src="{{url_for('static', filename='js/jquery-migrate-3.0.1.min.js')}}"></script>
   <script src="{{url_for('static', filename='js/jquery-ui.js')}}js/"></script>
@@ -246,7 +215,6 @@
   
   
   <script src="{{url_for('static', filename='js/main.js')}}"></script>
-  
   
   </body>
 </html>

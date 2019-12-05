@@ -1,0 +1,15 @@
+{% macro displayBooks(book_list)%}
+  {%for book in book_list%}
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
+          <div class="well well-lg">
+              <h4>{{book.title}}</h4>
+              <img src="{{url_for('static',filename=book.photo) }}" alt="{{ book.title }}">
+              <p>{{book.description| truncate(100)}}...</p>
+              <p>
+                Written by:  {{book.user.username}}
+                <a href="/book/{{book.id}}" class="btn pull-right">Read More...</a>
+              </p>
+          </div>
+      </div>
+  {%endfor%}
+{%endmacro%}

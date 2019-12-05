@@ -52,13 +52,13 @@
                     <div class="row align-items-center">
                       
                       <div class="col-11 col-xl-2">
-                        <h1 class="mb-0 site-logo"><a href="{{url_for('main.index')}}" class="text-white h2 mb-0">Browse</a></h1>
+                        <h1 class="mb-0 site-logo"><a href="{{url_for('main.all_books_view')}}" class="text-white h2 mb-0">Browse</a></h1>
                       </div>
                       <div class="col-12 col-md-10 d-none d-xl-block">
                         <nav class="site-navigation position-relative text-right" role="navigation">
             
                           <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                            <li><a href="{{url_for('main.index')}}"><span>Home</span></a></li>
+                            <li><a href="{{url_for('main.all_books_view')}}"><span>Home</span></a></li>
                             <li class="active"><a href="{{url_for('main.archives')}}"><span>Archives</span></a></li>
                             <li ><a href="{{url_for('main.specific')}}"><span>Specific Book</span></a></li>
                             <li><a href="about.html"><span>About</span></a></li>
@@ -121,7 +121,7 @@
               </a>
 
               <div class="lh-content">
-                <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                <a href="url_for('main.single_bk',id=book.id)" class="bookmark"><span class="icon-heart"></span></a>
                 <h3><a href="#">Jones Grill &amp; Restaurants</a></h3>
                 <p>Don St, Brooklyn, New York</p>
                 <p>
