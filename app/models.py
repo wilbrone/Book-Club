@@ -45,7 +45,7 @@ class Books(db.Model):
     author = db.Column(db.String(255))
     description = db.Column(db.String(255))
     posted = db.Column(db.DateTime, default = datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     photo = db.Column(db.String)
 
     def save_book(self):
