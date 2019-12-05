@@ -36,3 +36,12 @@ def book():
 		return redirect(url_for('.index'))
 
 	return render_template('book.html', title = title, book_form = form)
+
+@main.route('/archives')
+def archives():
+
+	return render_template('archives.html')
+
+@main.route('/specificbook')
+def specific():
+	return render_template('specificbook.html')
