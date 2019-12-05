@@ -41,3 +41,11 @@ class TestPasswords(unittest.TestCase):
 
     def test_verification(self):
         self.assertTrue(self.new_password.pass_secure, ('testing12') )
+
+
+class TestBooksActivity(unittest.TestCase):
+
+    def test_get_books(self):
+        self.new_book.save_book()
+        book=Books.get_books(1)
+        self.assertTrue(comment is not None)
