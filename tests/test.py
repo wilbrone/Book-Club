@@ -1,5 +1,5 @@
 import unittest
-from app.models import User, Books
+from app.models import User, Books, Chat
 from app import db
 
 class TestUsers(unittest.TestCase):
@@ -47,3 +47,11 @@ class TestPasswords(unittest.TestCase):
         self.assertTrue(self.new_password.pass_secure, ('testing12') )
 
 class TestChatRoom(unittest.TestCase):
+
+    def setUp(self):
+
+        self.new_chat=Chat(username='stonecold', message='wagwan')
+        self.new_chat.save_chat()
+
+    def test_chat_saved(self):
+        self.assertTrue(len(Chat.query.all())>0)

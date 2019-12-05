@@ -67,6 +67,5 @@ class Chat(db.Model):
     username =db.Column(db.String(50))
     message = db.Column(db.String(255))
 
-    
-
-
+    def save_chat(self):
+        pass 
