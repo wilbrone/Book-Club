@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 
 from . import main
-from .. import db
+from .. import db,photos
 from .forms import BookForm
 from ..models import User, Books
 from .. import create_app
@@ -32,18 +32,17 @@ def all_books_view():
 # @login_required
 def new_book_upload():
 	title = 'Book Club'
+
 	form = BookForm()
-	if form.validate_on_submit():
-		title = form.title.data
-		author = form.title.data
-		description = form.description.data
+	if 'photo' in request.files:
+		filename = photos.save(request.files['photo'])
+		path = f'photos/{filename}'
+		title = request.form['title']
+		author = request.form['author']
+		description = request.form['description']
 
-		# photo = form.upload.data
-		# filename = secure_filename(photo.filename)
-		# photo.save(os.path.join(app.instance_path, 'photos', filename))
-
-		# new_book = Books(title = title , author = author, description = description, user = current_user,photo = photo)
-		new_book = Books(title = title , author = author, description = description, user = current_user)
+		# new_book = Books(title = title , author = author, description = description, user = current_user,photo = path)
+		new_book = Books(title = title , author = author, description = description,photo = path)
 		new_book.save_book()
 		return redirect(url_for('.index'))
 
