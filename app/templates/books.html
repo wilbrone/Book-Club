@@ -9,18 +9,13 @@
   <div class="row" style="background-color:#616161; color:#ffffff;height:35%;">
     <h3 style="margin-left:10px;">{{s_book.title}}</h3>
     <hr style="margin-left:10px;margin-right:10px;">
+    <img src="{{url_for('static',filename=s_book.photo) }}" alt="{{s_book.title }}">
     <p style="margin-left:10px;">{{s_book.description}}</p>
     <span>
       <p style="margin-left:10px;">Posted on {{date}} by {{s_book.user.username| capitalize}}</p>
     </span>
   </div>
   <hr>
-  <!-- <div>
-    {{macro.displayComments(comments)}}
-  </div>
-  {% if current_user.is_authenticated %}
-    {{ wtf.quick_form(comment_form) }}
-  {%endif%} -->
 </div>
 
 {% endblock %}

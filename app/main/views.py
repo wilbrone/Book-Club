@@ -42,30 +42,20 @@ def new_book_upload():
 		author = request.form['author']
 		description = request.form['description']
 
-		# new_book = Books(title = title , author = author, description = description, user = current_user,photo = path)
-		new_book = Books(title = title , author = author, description = description,photo = path)
+		new_book = Books(title = title , author = author, description = description, user = current_user,photo = path)
+		# new_book = Books(title = title , author = author, description = description,photo = path)
 		new_book.save_book()
-		return redirect(url_for('.index'))
+		return redirect(url_for('.all_books_view'))
 
 	return render_template('book.html', title = title, book_form = form)
 
 
-# VIEW FULL DETAIL ABOUT A CERTAIN BOOK & ITS COMMENTS
+# VIEW FULL DETAIbook.photoL ABOUT A CERTAIN BOOK & ITS COMMENTS
 @main.route('/book/<int:id>',methods = ['GET','POST'])
 def single_bk(id):
 	s_book = Books.get_single_book(id)
-	posted = s_book.published.strftime('%b %d, %Y')
+	posted = s_book.posted.strftime('%b %d, %Y')
 
-	# comment_form = CommentForm()
-	# if comment_form.validate_on_submit():
-	# 	comment = comment_form.content.data
-	#
-	# 	new_comment = Comments(comment = comment,user_id = current_user,blog_id = blog)
-	#
-	# 	new_comment.save_comment()
-	#
-	# comments = Comments.get_comments(blog.id)
-    # return render_template('pitch.html', pitch=pitch, comment_form=comment_form, comments=comments, date=posted_date)
 	return render_template('books.html', s_book = s_book,date = posted)
 
 
