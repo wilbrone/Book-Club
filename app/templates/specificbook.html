@@ -178,9 +178,13 @@
     <div style="margin-left: 8%;overflow-y: auto;max-height: 500px;max-width: 740px;">
       {% for message in chat %}
       <div id="content">
-        <b>{{message.username}}</b>
-        <p>{{message.message}}</p>
+        {% if message.username == current_user.username %}
+        <b style="color: #d93ec4;">{{message.username}}</b>
+        {% else %}
+        <b style="color: #560c89;">{{message.username}}</b>
+        {%endif%}
 
+        <p>{{message.message}}</p>
       </div>
       {% endfor %}
     </div>
