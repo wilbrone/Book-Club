@@ -19,27 +19,27 @@ def index():
 	return render_template('index.html',title = title)
 
 
-@main.route('/archives')
-def archives():
+# @main.route('/archives')
+# def archives():
 
-	return render_template('archives.html')
+# 	return render_template('archives.html')
 
-@main.route('/specificbook')
-def specific():
-	return render_template('specificbook.html')
+# @main.route('/specificbook')
+# def specific():
+# 	return render_template('specificbook.html')
 
 
-	# WILBRONE AND BELLA
+
 
 
 
 
 # DISPLAY ALL BOOKS IN THE DB
 @main.route('/all_books')
-# @login_required
+@login_required
 def all_books_view():
 	all_books = Books.get_books()
-	return render_template('index.html',all_books = all_books)
+	return render_template('archives.html',all_books = all_books)
 
 
 # UPLOADING NEW BOOK TO THE SYSYTEM
@@ -81,7 +81,7 @@ def user_books(uname):
     user = User.query.filter_by(username=uname).first()
     books = Books.query.filter_by(user_id = user.id).all()
 
-    return render_template("profile/books.html", user = user,books = books)
+    return render_template("profile/profile.html", user = user,books = books)
 
 
 pusher_client = pusher.Pusher(
