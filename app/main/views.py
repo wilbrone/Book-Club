@@ -70,10 +70,11 @@ def new_book_upload():
 @login_required
 def single_bk(id):
 	chat = Chat.query.all()
+
 	s_book = Books.get_single_book(id)
 	posted = s_book.posted.strftime('%b %d, %Y')
 
-	return render_template('specificbook.html', s_book = s_book,date = posted)
+	return render_template('specificbook.html', s_book = s_book, date = posted, chat = chat)
 
 
 

@@ -80,7 +80,7 @@
                     {%if current_user.is_authenticated%}
                     <li class="nav-item">
     
-                      <a><span>Current user: {{current_user.username}}</span></a></li>
+                      <a><span>{{current_user.username | capitalize}}</span></a></li>
                     
                   
     
@@ -188,28 +188,6 @@
       </div>
     </div>
     
-    <footer class="site-footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-9">
-              <div class="row">
-               
-                
-                
-              </div>
-            </div>
-            
-          </div>
-          <div class="row pt-5 mt-5">
-            <div class="col-12 text-md-center text-left">
-              <p>
-                
-            &copy; 2019 <strong class="text-black">Book Club </strong> 
-            </p>
-            </div>
-          </div>
-        </div>
-      </footer>
   </div>
 
   <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
