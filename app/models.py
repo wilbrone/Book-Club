@@ -41,7 +41,7 @@ class Books(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(255))
     author = db.Column(db.String(255))
-    description = db.Column(db.String(255))
+    description = db.Column(db.String)
     posted = db.Column(db.DateTime, default = datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     photo = db.Column(db.String)
