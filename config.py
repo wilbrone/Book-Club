@@ -3,7 +3,7 @@ import os
 class Config:
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 	UPLOADED_PHOTOS_DEST ='app/static/photos'
-	SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:bellah@1972@localhost/booky'
+	# SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:bellah@1972@localhost/booky'
 	SECRET_KEY = os.environ.get('SECRET_KEY')
 	# mail configurations
 	MAIL_SERVER = 'smtp.googlemail.com'
