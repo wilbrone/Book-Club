@@ -5,7 +5,7 @@ class Config:
 	UPLOADED_PHOTOS_DEST ='app/static/photos'
 	SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:tracy:Wakanda2030@localhost/book'
 	SECRET_KEY = os.environ.get('SECRET_KEY')
-
+	# mail configurations
 	MAIL_SERVER = 'smtp.googlemail.com'
 	MAIL_PORT = 587
 	MAIL_USE_TLS = True
@@ -16,16 +16,14 @@ class Config:
 	def init_app(app):
 		pass
 
-
 class TestConfig(object):
 	"""docstring for TestConfig."""
 
-	# SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://aphya5:NewPasword@localhost/books_dbt_test'
-
+	SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Jacques@localhost/bookstore_test'
 
 class ProdConfig(Config):
-	SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
+	SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 class DevConfig(Config):
 	SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://tracy:Wakanda2030@localhost/book'

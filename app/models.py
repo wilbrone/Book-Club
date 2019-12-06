@@ -1,13 +1,8 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 from datetime import datetime
-
 from . import login_manager
 from . import db
-
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return User.get(user_id)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -15,20 +10,16 @@ def load_user(user_id):
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
-
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(255), index = True)
     full_name = db.Column(db.String(255))
     email = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
-
     book = db.relationship('Books', backref ='user', lazy = 'dynamic')
-
 
     def save_user(self):
         db.session.add(self)
         db.session.commit()
-
 
     @property
     def password(self):
@@ -44,7 +35,6 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
-
 class Books(db.Model):
     """docstring for Books."""
     __tablename__ = 'books'
@@ -53,7 +43,7 @@ class Books(db.Model):
     author = db.Column(db.String(255))
     description = db.Column(db.String(255))
     posted = db.Column(db.DateTime, default = datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     photo = db.Column(db.String)
 
     def save_book(self):

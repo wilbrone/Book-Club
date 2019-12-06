@@ -1,21 +1,126 @@
-{% extends 'base.html' %}
-{% import 'macros.html' as macro %}
-
 {% import "bootstrap/wtf.html" as wtf %}
-
+{% extends 'base.html' %}
 {% block content %}
-<!-- make a section for the book cover -->
-<div style="font-family: 'Indie Flower', cursive; width:70%;margin: 0 auto;">
-  <div class="row" style="background-color:#616161; color:#ffffff;height:35%;">
-    <h3 style="margin-left:10px;">{{s_book.title}}</h3>
-    <hr style="margin-left:10px;margin-right:10px;">
-    <img src="{{url_for('static',filename=s_book.photo) }}" alt="{{s_book.title }}">
-    <p style="margin-left:10px;">{{s_book.description}}</p>
-    <span>
-      <p style="margin-left:10px;">Posted on {{date}} by {{s_book.user.username| capitalize}}</p>
-    </span>
-  </div>
-  <hr>
-</div>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pusher Test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+  <body style="overflow-y: hidden;" class="has-navbar-fixed-bottom">
+      
+      
+      <!-- make a section for the book cover -->
+      <div style="font-family: 'Indie Flower', cursive; width:70%;margin: 0 auto;">
+        <div class="row" style="background-color:#616161; color:#ffffff;height:35%;">
+          <h3 style="margin-left:10px;">{{s_book.title}}</h3>
+          <hr style="margin-left:10px;margin-right:10px;">
+          <img src="{{url_for('static',filename=s_book.photo) }}" alt="{{s_book.title }}">
+          <p style="margin-left:10px;">{{s_book.description}}</p>
+          <span>
+            <p style="margin-left:10px;">Posted on {{date}} by {{s_book.user.username| capitalize}}</p>
+          </span>
+        </div>
+        <hr>
+        
+      
+      </div>
+
+      {% for message in chat %}
+      <div id="content" >
+        <b>{{message.username}}</b>
+        <p>{{message.message}}</p>
+            
+      </div>
+      {% endfor %}
+      
+      <button class="btn btn-outline-danger" type="button" value="{{ s_book.user.username }}" id='main'>Chat</button>
+
+      <div class="input-group mb-3" id="user" style="width: 50%;">
+          <input type="text" class="form-control" id="username_input" placeholder="choose a username" aria-label="username" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="start_chat">Start chatting</button>
+          </div>
+        </div>
+
+
+        
+        <div class="input-group mb-3" id="chat" style="width: 50%;">
+            <input type="text" id="chat_text"  class="form-control" placeholder="your message" aria-label="username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button id="chat_btn" class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
+            </div>
+          </div>
+          
+          
+          <style>
+            #chat,#user{
+              display:none;
+            }
+          </style>
+          
+          
+          
+          <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+          <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+          <script>
+
+        $(function(){
+
+            let username;
+
+            $('#main').on('click', function(){
+              $('#chat').toggle();
+              username = $('#main').val();
+
+            });
+
+            $('#start_chat').on('click', function(){
+                // username = $('#main').val();
+                
+            });
+
+        $('#chat_btn').on('click', function(){
+            message = $('#chat_text').val();
+
+            $.post('/message', {'username': username, 'message' : message})
+        
+        });
+        
+        
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('516cc952f7e807a6d0b3', {
+            cluster: 'ap2',
+            forceTLS: true
+        });
+
+        var channel = pusher.subscribe('chat-channel')
+        channel.bind('new-message', function(data) {
+            let name = data.username;
+            let message = data.message;
+
+            let message_template = `
+                                <div>
+                                    <p>
+                                        <b>${name}</b>
+                                        <br> ${message}
+                                    </p>
+                                </div>`
+
+            
+            $('#content').append(message_template);
+        });
+    });
+</script>
+</body>
+</html>
 
 {% endblock %}
+
+
+
+
