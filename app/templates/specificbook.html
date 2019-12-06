@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 
     <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='magnific-popup.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='jquery-ui.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='owl.carousel.min.css')}}">
@@ -30,6 +31,8 @@
     <link rel="stylesheet" href="{{url_for('static', filename='rangeslider.css')}}">
 
     <link rel="stylesheet" href="{{url_for('static', filename='stylestop.css')}}">
+   
+    <link rel="stylesheet" href="../static/chat.css">
     
   </head>
   <body>
@@ -47,31 +50,63 @@
     
     <header class="site-navbar" role="banner">
 
-      <div class="container">
-        <div class="row align-items-center">
-          
-          <div class="col-11 col-xl-2">
-            <h1 class="mb-0 site-logo"><a href="{{url_for('main.all_books_view')}}" class="text-white h2 mb-0">Book Club</a></h1>
-          </div>
-          <div class="col-12 col-md-10 d-none d-xl-block">
-            <nav class="site-navigation position-relative text-right" role="navigation">
+        <div class="container">
+            <div class="row align-items-center">
+              
+              <div class="col-11 col-xl-2">
+                <h1 class="mb-0 site-logo"><a href="{{url_for('main.index')}}" class="text-white h2 mb-0">Book Club</a></h1>
+              </div>
+              <div class="col-12 col-md-10 d-none d-xl-block">
+                <nav class="site-navigation position-relative text-right" role="navigation">
+    
+                  <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+                    <li><a href="{{url_for('main.index')}}"><span>Home</span></a></li>
+                    <li class="has-children">
+                        <a><span>More</span></a>
+                        <ul class="dropdown arrow-top">
+                    
+                          <li><a href="{{url_for('main.all_books_view')}}"><span>Archives</span></a></li>
+                          <li><a href="#"><span>About</span></a></li>
+                          <li><a href="#"><span>Contact</span></a></li>
 
-              <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                <li><a href="{{url_for('main.all_books_view')}}"><span>Home</span></a></li>
-                <li><a href="{{url_for('main.archives')}}"><span>Archives</span></a></li>
-                <li class="active"><a href="{{url_for('main.specific')}}"><span>Specific</span></a></li>
-                <li><a href="about.html"><span>About</span></a></li>
-                <li><a href="contact.html"><span>Contact</span></a></li>
-              </ul>
-            </nav>
-          </div>
+    
+                    {%if current_user.is_authenticated%}
+                    
+                      <li class="nav-item">
+                        <a href="{{url_for('main.user_books',uname=current_user.username)}}"><span>Profile</span></a></li>
+    
+                     {%endif%}
+                          
+                        </ul>
+                      </li>
+                    
+    
+                    {%if current_user.is_authenticated%}
+                    <li class="nav-item">
+    
+                      <a><span>Current user: {{current_user.username}}</span></a></li>
+                    
+                  
+    
+                    <li class="nav-item">
+                      <a href="{{url_for('auth.logout')}}"><span>Sign out</span></a></li>
+    
+                {%else%}
+                    <li class="nav-item">
+                      <a href="{{url_for('auth.login')}}"><span>Sign in</span></a></li>
+                {%endif%}
 
-
-          <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
-
-          </div>
-
-        </div>
+               
+                  </ul>
+                </nav>
+              </div>
+    
+    
+              <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+    
+              </div>
+    
+            </div>
       </div>
       
     </header>
@@ -151,13 +186,39 @@
       </div>
     </div>
 
+    <div class="chat-popup" id="myForm" style="margin-left: 10%;">
+        <form class="form-container" style="width: 30%;">
+          <h1 style="color:blue">Chat</h1>
+          <div>
+                <input type="text" class="form-control" id="username_input" placeholder="choose a username" aria-label="username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="start_chat">Start chatting</button>
+                </div>
+          </div>
+          
+          <div>
+                <label for="msg"><b>Message</b></label>
+                <textarea  type="text" placeholder="Type message.." name="msg" id="chat_text" aria-label="username" aria-describedby="button-addon2" required></textarea>
+                <div class="input-group-append">
+                        <button id="chat_btn" class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                </div>
+          </div>
+          <div id="content" >
+            </div>
+         
+          <!-- <button type="submit" class="btn">Send</button> -->
+          <!-- <button type="button" class="btn cancel" onclick="closeForm()">Close</button> -->
+        </form>
+      </div>
+
     
     <div class="py-5 bg-primary">
       <div class="container">
         <div class="row">
           <div class="col-lg-7 mr-auto mb-4 mb-lg-0">
             <h2 class="mb-3 mt-0 text-white">Let's get started. Create your account</h2>
-            <p class="mb-0 text-white">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <p class="mb-0 text-white"></p>
           </div>
           <div class="col-lg-4">
             <p class="mb-0"><a href="signup.html" class="btn btn-outline-white text-white btn-md px-5 font-weight-bold btn-md-block">Sign Up</a></p>
@@ -167,69 +228,27 @@
     </div>
     
     <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-9">
-            <div class="row">
-              <div class="col-md-6 mb-5 mb-lg-0 col-lg-3">
-                <h2 class="footer-heading mb-4">Quick Links</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 mb-5 mb-lg-0 col-lg-3">
-                <h2 class="footer-heading mb-4">Products</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 mb-5 mb-lg-0 col-lg-3">
-                <h2 class="footer-heading mb-4">Features</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 mb-5 mb-lg-0 col-lg-3">
-                <h2 class="footer-heading mb-4">Follow Us</h2>
-                <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9">
+              <div class="row">
+               
+                
+                
               </div>
             </div>
+            
           </div>
-          <div class="col-lg-3">
-            <h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-            <form action="#" method="post">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-primary text-white" type="button" id="button-addon2">Send</button>
-                </div>
-              </div>
-            </form>
+          <div class="row pt-5 mt-5">
+            <div class="col-12 text-md-center text-left">
+              <p>
+                
+            &copy; 2019 <strong class="text-black">Book Club </strong> 
+            </p>
+            </div>
           </div>
         </div>
-        <div class="row pt-5 mt-5">
-          <div class="col-12 text-md-center text-left">
-            <p>
-              <!-- Link back to Free-Template.co can't be removed. Template is licensed under CC BY 3.0. -->
-          &copy; 2019 <strong class="text-black">Browse</strong> Free Template. All Rights Reserved. <br> Design by <a href="https://free-template.co/" target="_blank" class="text-black">Free-Template.co</a>
-          </p>
-          </div>
-        </div>
-      </div>
-    </footer>
+      </footer>
   </div>
   <script src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
   <script src="{{url_for('static', filename='js/jquery-migrate-3.0.1.min.js')}}"></script>
@@ -246,6 +265,48 @@
   
   
   <script src="{{url_for('static', filename='js/main.js')}}"></script>
+
+
+  <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script src="../static/chat.js"></script>
+  <script>
+  $(function(){
+          let username;
+          $('#start_chat').on('click', function(){
+              username = $('#username_input').val();
+              // alert(username);
+          });
+      $('#chat_btn').on('click', function(){
+          message = $('#chat_text').val();
+          $.post('/message', {'username': username, 'message' : message})
+      
+      });
+      
+      
+      // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
+
+      var pusher = new Pusher('516cc952f7e807a6d0b3', {
+          cluster: 'ap2',
+          forceTLS: true
+      });
+      var channel = pusher.subscribe('chat-channel')
+      channel.bind('new-message', function(data) {
+          let name = data.username;
+          let message = data.message;
+      let message_template = `
+                              <div>
+                                  <p>
+                                      <b>${name}</b>
+                                      <br> ${message}
+                                  </p>
+                              </div>`
+          
+          $('#content').append(message_template);
+      });
+  });
+</script>
   
   
   </body>
