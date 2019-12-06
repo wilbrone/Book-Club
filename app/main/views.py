@@ -13,6 +13,7 @@ import pusher
 
 # Views
 
+# THIS IS THE LANDING PAGE BEFORE LOGIN
 @main.route('/')
 def index():
 	title = 'Book Club'

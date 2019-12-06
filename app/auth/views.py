@@ -7,6 +7,8 @@ from ..models import User
 from .. import db
 from ..email import mail_message
 
+
+# USERS LOGIN
 @auth.route('/login',methods=['GET','POST'])
 def login():
     login_form = LoginForm()
@@ -22,6 +24,8 @@ def login():
     title = "Blog Post"
     return render_template('auth/Login2.html',login_form = login_form,title=title)
 
+
+# USERS REGISTER FOR NEW ACCOUNTS
 @auth.route('/register',methods = ["GET","POST"])
 def register():
     form = RegistrationForm()
@@ -29,8 +33,6 @@ def register():
         user = User(email = form.email.data, username = form.username.data,full_name= form.full_name.data,password = form.password.data)
         # saving the data
         user.save_user()
-        # db.session.add(user)
-        # db.session.commit()
 
         mail_message("Welcome to Blog Post","email/welcome",user.email,user=user)
 
@@ -38,6 +40,8 @@ def register():
         title = "New Account"
     return render_template('auth/register2.html',registration_form = form)
 
+
+# FOR USER LOGOUT
 @auth.route('/logout')
 @login_required
 def logout():

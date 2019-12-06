@@ -12,8 +12,3 @@ class BookForm(FlaskForm):
     title = StringField('Book title', validators = [Required()])
     author = StringField('Author', validators = [Required()])
     description = TextAreaField('Text', validators = [Required()])
-    # photo upload
-    # upload = FileField('Book Cover', validators=[FileRequired(),FileAllowed(photo, 'Images only!')])
-    upload = FileField('Book Cover',validators=[FileRequired()])
-
-    submit = SubmitField('Submit')
